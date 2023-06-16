@@ -5,10 +5,20 @@
 </head>
 
 <body>
-    <custom-card title="Card 1" description="Card Description from HTML" info="Additional Info"></custom-card>
-
-    <custom-card title="Card 2" description="Card Description from HTML 2" info="Additional Info 2"></custom-card>
-
-    <custom-card title="Card 3" description="Card Description from HTML 3" info="Additional Info 3"></custom-card>
+    <ul>
+        <tree-item data='{
+            "first": [
+                {
+                    "a": [1],
+                    "b": [2],
+                    "c": [
+                        {"nested": [true]}
+                        ] 
+                }
+            ],
+            "second": ["a", "b", "c"]
+        }
+        '></tree-item>
+    </ul>
 </body>
 </html>
