@@ -205,6 +205,8 @@ class CustomCard extends LitElement {
 
     emitEvent(){
         let event = new CustomEvent(this.event_name, {
+            bubbles: true,
+            composed: true,
             detail: {
               message: `Emitted ${this.event_name} event from ${this.action_text} action in component`,
               id: this.id
