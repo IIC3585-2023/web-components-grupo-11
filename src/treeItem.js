@@ -42,7 +42,7 @@ template.innerHTML = `
             <h3 id="categoryName"></h3>
         </div>
         <div class="children-container"></div>
-    <div>
+    </div>
 `
 
 
