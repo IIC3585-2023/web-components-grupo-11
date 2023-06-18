@@ -74,17 +74,36 @@ class TreeItem extends HTMLElement {
     connectedCallback() {
         // Setting timeout so slotted content can load
         setTimeout( () => {
-            console.log(this._shadowRoot.querySelector('#slotContent').assignedNodes()[0])
+            // First, remove empty text elements.
+            let elementsToRemove = []
+            for (const node of this._shadowRoot.querySelector('#slotContent').assignedNodes()) {
+                if ((node instanceof Text) && (node.textContent.trim().length === 0)) {
+                    elementsToRemove.push(node)
+                } 
+            }
+            for (const node of elementsToRemove) {
+                node.remove();
+            }
+
+            // First child will be the title.
             let firstChild = this._shadowRoot.querySelector('#slotContent').assignedNodes()[0]
-            this.title = firstChild.textContent;
-            // this._shadowRoot.querySelector('#slotContent').assignedNodes().splice
-            this._shadowRoot.querySelector('#categoryName').innerHTML = `${this.title}`;
-            firstChild.remove()
+            if (firstChild instanceof Text) {
+                const title = firstChild.textContent.trim();
+                this._shadowRoot.querySelector('#categoryName').innerHTML = title
+                firstChild.remove();
+            }
+            else {
+                const title = firstChild;
+                this._shadowRoot.querySelector('#categoryName').appendChild(title);
+            }
+            // At the start, every child will be hidden.
             this._shadowRoot.querySelector('.children-container').classList.add('invisible');
             if (this._shadowRoot.querySelector('#slotContent').assignedNodes().length > 0) {
+                // If we have more nested content, we add the click listener to display children.
                 this._shadowRoot.querySelector('.toggle-button').addEventListener('click', this.toggleChildren)
             }
             else {
+                // Else, we remove the arrow image.
                 this._shadowRoot.querySelector('.toggle-button').removeAttribute('src');
             }
         })
