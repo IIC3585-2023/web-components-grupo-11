@@ -41,9 +41,7 @@ template.innerHTML = `
             <img class="toggle-button" src='imgs/right_arrow.svg'>
             <h3 id="categoryName"></h3>
         </div>
-        <div class="children-container">
-            <slot id="slotContent"></slot>
-        </div>
+        <div class="children-container"></div>
     </div>
 `
 
@@ -55,39 +53,50 @@ class TreeItem extends HTMLElement {
         this._shadowRoot = this.attachShadow( {mode: 'open'} )
         this._shadowRoot.appendChild(template.content.cloneNode(true))
         this.childrenVisible = false;
+        this.treeChildren = []
     }
 
     toggleChildren = (event) => {
         event.stopPropagation()
         if (this.childrenVisible) {
-            this._shadowRoot.querySelector('.children-container').classList.add('invisible');
+            for (let child of this.treeChildren) {
+                child.classList.add('invisible')
+            }
             this.childrenVisible = false
             this._shadowRoot.querySelector('.toggle-button').setAttribute('src', 'imgs/right_arrow.svg')
         }
         else {
-            this._shadowRoot.querySelector('.children-container').classList.remove('invisible');
+            for (let child of this.treeChildren) {
+                child.classList.remove('invisible')
+            }
             this.childrenVisible = true
             this._shadowRoot.querySelector('.toggle-button').setAttribute('src', 'imgs/down_arrow.svg')
         }
     }
 
     connectedCallback() {
-        // Setting timeout so slotted content can load
-        setTimeout( () => {
-            console.log(this._shadowRoot.querySelector('#slotContent').assignedNodes()[0])
-            let firstChild = this._shadowRoot.querySelector('#slotContent').assignedNodes()[0]
-            this.title = firstChild.textContent;
-            // this._shadowRoot.querySelector('#slotContent').assignedNodes().splice
-            this._shadowRoot.querySelector('#categoryName').innerHTML = `${this.title}`;
-            firstChild.remove()
-            this._shadowRoot.querySelector('.children-container').classList.add('invisible');
-            if (this._shadowRoot.querySelector('#slotContent').assignedNodes().length > 0) {
-                this._shadowRoot.querySelector('.toggle-button').addEventListener('click', this.toggleChildren)
+        const rawData = JSON.parse(this.attributes.data.value)
+        this.title = Object.keys(rawData)[0]
+        this.data = rawData[this.title]
+        this._shadowRoot.querySelector('#categoryName').innerHTML = `${this.title}`;
+        this.treeChildren = [];
+        if (typeof(this.data) === 'object') {
+            for (let element of Object.keys(this.data)) {
+                let childTree = document.createElement('tree-item');
+                let childProps = {}
+                childProps[element] = this.data[element]
+
+                childTree.setAttribute('data', JSON.stringify(childProps))
+                childTree.classList.add('invisible');
+                this._shadowRoot.querySelector('.children-container').appendChild(childTree)
+                this.treeChildren.push(childTree)
             }
-            else {
-                this._shadowRoot.querySelector('.toggle-button').removeAttribute('src');
-            }
-        })
+            this._shadowRoot.querySelector('.toggle-button').addEventListener('click', this.toggleChildren)
+        }
+        else {
+            // This element cant be nested, dont add click event and remove img
+            this._shadowRoot.querySelector('.toggle-button').removeAttribute('src');
+        }
     }
 }
 
