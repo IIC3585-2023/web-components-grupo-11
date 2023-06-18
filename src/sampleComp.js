@@ -189,8 +189,7 @@ class CustomCard extends LitElement {
     }
 
     getRating(){
-        console.log(this.rating)
-        const amount = Math.min(Math.max(0, this.rating), 5)
+        const amount = Math.min(Math.max(0, Math.floor(this.rating)), 5)
         console.log(amount)
         const ratingTemplate = [];
         for(let i = 0; i < amount; i++){
