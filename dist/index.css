@@ -64,8 +64,22 @@ custom-card{
     width: 100%;
     height: 50px;
     background: rgb(213, 213, 252);
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
 }
 
+.navbar-logo img {
+    padding-top: 7px;
+    padding-left: 10px;
+    width: 35px;
+    height: 35px;
+}
+
+.navbar-title {
+    padding-top: 10px;
+    font-size: 20px;
+}
 
 body {
     margin: 0;
@@ -93,5 +107,21 @@ body {
         height: 80px;
         border-radius: 10px;
         font-size: 50px;
+    }
+
+    .navbar {
+        height: 150px;
+    }
+
+    .navbar-logo img {
+        padding-top: 15px;
+        padding-left: 20px;
+        width: 100px;
+        height: 100px;
+    }
+
+    .navbar-title {
+        padding-top: 30px;
+        font-size: 60px;
     }
 }
