@@ -51,7 +51,6 @@ class CustomCard extends LitElement {
                 display: none;
             }
             .box {
-                width: 15%;
                 margin: 10px;
                 box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
                 transition: 0.3s;
@@ -66,7 +65,8 @@ class CustomCard extends LitElement {
             }
             .box img {
                 width: 100%;
-                height: 10%
+                height: 10%;
+                object-fit: cover;
                 position: relative;
             }
 
