@@ -1,10 +1,40 @@
 <!DOCTYPE HTML>
 <html>
 <head>
+    <link rel="stylesheet" href="index.css">
     <script type="text/javascript" src="main.js"></script>
 </head>
 
 <body>
+    <div id="treeContainer">
+        <tree-item>
+            Titulo
+            <tree-item>
+                nested
+                <tree-item>
+                    hola
+                </tree-item>
+                <tree-item>
+                    chao
+                </tree-item>
+            </tree-item>
+            <tree-item>
+                hola hola
+                <tree-item>
+                    <a href="#">Link</a>
+                </tree-item>
+                <tree-item>
+                    Mas nesteado
+                    <tree-item>
+                        ASDASD
+                        <tree-item>
+                            <button>CLICK OLA</button>
+                        </tree-item>
+                    </tree-item>
+                </tree-item>
+            </tree-item>
+        </tree-item>
+    </div>
     <custom-card 
                 action_text="Comprar-custom"
                 event_name="custom_event_name"
