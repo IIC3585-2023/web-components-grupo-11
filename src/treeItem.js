@@ -1,14 +1,24 @@
 let template = document.createElement('template')
 template.innerHTML = `
     <style>
+        :host {
+            display: block
+        }
+        
+        :host[hidden] {
+            display: none;
+        }
+
         .invisible {
             display: none;
         }
 
         .toggle-button {
-            width: 10px;
-            height: 10px;
-            padding: 10px;
+            width: 1ch;
+            height: 1ch;
+            padding-left: 1ch;
+            padding-bottom: 1.5ch;
+            padding-right: 0.5ch;
         }
 
         .header {
@@ -35,10 +45,14 @@ template.innerHTML = `
             // border-radius: 5px;
             background-color: rgb(245,245,245);
         }
+
+        .header:hover {
+            background-color: rgb(240,240,240);
+        }
     </style>
     <div class="main-container">
         <div class="header">
-            <img class="toggle-button" src='imgs/right_arrow.svg'>
+            <div class="toggle-button">⮞</div>
             <h3 id="categoryName"></h3>
         </div>
         <div class="children-container">
@@ -62,12 +76,12 @@ class TreeItem extends HTMLElement {
         if (this.childrenVisible) {
             this._shadowRoot.querySelector('.children-container').classList.add('invisible');
             this.childrenVisible = false
-            this._shadowRoot.querySelector('.toggle-button').setAttribute('src', 'imgs/right_arrow.svg')
+            this._shadowRoot.querySelector('.toggle-button').innerHTML = '⮞'
         }
         else {
             this._shadowRoot.querySelector('.children-container').classList.remove('invisible');
             this.childrenVisible = true
-            this._shadowRoot.querySelector('.toggle-button').setAttribute('src', 'imgs/down_arrow.svg')
+            this._shadowRoot.querySelector('.toggle-button').innerHTML = '⮟'
         }
     }
 
@@ -104,7 +118,7 @@ class TreeItem extends HTMLElement {
             }
             else {
                 // Else, we remove the arrow image.
-                this._shadowRoot.querySelector('.toggle-button').removeAttribute('src');
+                this._shadowRoot.querySelector('.toggle-button').innerHTML = '';
             }
         })
     }

@@ -162,6 +162,48 @@ class CustomCard extends LitElement {
             .rating {
                 margin-top: 5px;
             }
+
+            @media only screen and (max-width: 1024px)  {
+            .discountPercentage {
+                /* font-size: 0.9rem; */
+                font-size: 2.7rem;
+            }
+
+            .discountPrice{
+                /* font-size: 1rem; */
+                font-size: 3rem;
+            }
+
+            .itemName {
+                /* font-size:1rem; */
+                font-size: 3rem;
+            }
+
+            .brandName {
+                /* font-size:0.8rem; */
+                font-size: 2.4rem
+            }
+
+            .marketplaceName {
+                /* font-size:0.6rem; */
+                font-size: 1.8rem;
+            }
+            
+            .normalPrice{
+                /* font-size: 1rem; */
+                font-size: 3rem;
+            }
+
+            .clip-star-checked, .clip-star-unchecked {
+                height: 5rem;
+                width: 5rem
+            }
+
+            .actionButton {
+                height: 3.5rem;
+                font-size: 2.5rem;
+            }
+        }
         `
     }
 
